@@ -272,14 +272,14 @@ srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer ex
 
 srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime feature-table summarize --i-table q2-picrust2_16s/pathway_abundance.qza --o-visualization q2-picrust2_output/pathway_abundance.qzv
 
-srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime export --input-path q2-picrust2_16s/ec_metagenome.qza --output-path q2-picrust2_16s/ec_metagenome.biom
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime tools export --input-path q2-picrust2_16s/ec_metagenome.qza --output-path q2-picrust2_16s/ec_metagenome.biom
 
-srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime export --input-path q2-picrust2_16s/ko_metagenome.qza --output-path q2-picrust2_16s/ko_metagenome.biom
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime tools export --input-path q2-picrust2_16s/ko_metagenome.qza --output-path q2-picrust2_16s/ko_metagenome.biom
 
-srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime export --input-path q2-picrust2_16s/pathway_abundance.qza --output-path q2-picrust2_16s/pathway_abundance.biom
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime tools export --input-path q2-picrust2_16s/pathway_abundance.qza --output-path q2-picrust2_16s/pathway_abundance.biom
 
-srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime diversity core-metrics -i-table imo-16s-table_phylum.qza --p-sampling-depth 280000 --m-metadata-file metadata_all_16s_control.tsv --out-dir q2-picrust2_output
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime diversity core-metrics --i-table q2-picrust2_16s/pathway_abundance.qza --p-sampling-depth 280000 --m-metadata-file metadata_all_16s_control.tsv --output-dir q2-picrust2_output_diversity_core_metrics
 
-biom convert -i q2-picrust2_16s/ec_metagenome.biom -o q2-picrust2_16s/ec_metagenome.biom.tsv --to-tsv
-biom convert -i q2-picrust2_16s/ko_metagenome.biom -o q2-picrust2_16s/ko_metagenome.biom.tsv --to-tsv
-biom convert -i q2-picrust2_16s/pathway_abundance.biom -o q2-picrust2_16s/pathway_abundance.biom.tsv --to-tsv
+biom convert -i q2-picrust2_16s/ec_metagenome.biom/feature-table.biom -o q2-picrust2_16s/ec_metagenome.biom.tsv --to-tsv
+biom convert -i q2-picrust2_16s/ko_metagenome.biom/feature-table.biom -o q2-picrust2_16s/ko_metagenome.biom.tsv --to-tsv
+biom convert -i q2-picrust2_16s/pathway_abundance.biom/feature-table.biom -o q2-picrust2_16s/pathway_abundance.biom.tsv --to-tsv
