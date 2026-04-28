@@ -168,6 +168,9 @@ $srun qiime diversity beta-group-significance \
   --o-visualization imo-its-core-metrics-results/imo-its-unweighted-unifrac-imo2_d7_raw-significance.qzv \
   --p-pairwise
 
+$srun qiime diversity beta-rarefaction --i-table imo-16s-table_phylum.qza --p-metric unweighted_unifrac --p-clustering-method upgma --m-metadata-file metadata_all.tsv --p-sampling-depth 280000 --i-phylogeny imo-16s-rooted-tree.qza --o-visualization imo-16s-table_phylum_beta_rare.qzv
+
+$srun qiime diversity beta-rarefaction --i-table imo-its-table_phylum.qza --p-metric unweighted_unifrac --p-clustering-method upgma --m-metadata-file metadata_all.tsv --p-sampling-depth 280000 --i-phylogeny imo-its-rooted-tree.qza --o-visualization imo-its-table_phylum_beta_rare.qzv
 
 
 $srun qiime emperor plot \
@@ -261,3 +264,22 @@ $srun qiime feature-table summarize \
 
 
 
+srun --mem=100G --time=48:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime picrust2 full-pipeline --i-table imo-16s-table_phylum.qza --i-seq imo-16s-rep-seqs.qza --output-dir q2-picrust2_16s --p-placement-tool sepp --p-threads 16 --p-hsp-method mp --p-max-nsti 2 --p-edge-exponent 0 --verbose
+
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime feature-table summarize --i-table q2-picrust2_16s/ec_metagenome.qza --o-visualization q2-picrust2_output/ec_metagenome.qzv
+
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime feature-table summarize --i-table q2-picrust2_16s/ko_metagenome.qza --o-visualization q2-picrust2_output/ko_metagenome.qzv
+
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime feature-table summarize --i-table q2-picrust2_16s/pathway_abundance.qza --o-visualization q2-picrust2_output/pathway_abundance.qzv
+
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime export --input-path q2-picrust2_16s/ec_metagenome.qza --output-path q2-picrust2_16s/ec_metagenome.biom
+
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime export --input-path q2-picrust2_16s/ko_metagenome.qza --output-path q2-picrust2_16s/ko_metagenome.biom
+
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime export --input-path q2-picrust2_16s/pathway_abundance.qza --output-path q2-picrust2_16s/pathway_abundance.biom
+
+srun --mem=100G --time=24:00:00 -p zhao_a --account=zhao_condo_bank apptainer exec --cleanenv --bind /lustre/fs4/zhao_lab/scratch/ulee/analysis/imo/:/home --home /home/ --no-mount cwd  /lustre/fs4/zhao_lab/scratch/ulee/docka/q2-picrust2.sif qiime diversity core-metrics -i-table imo-16s-table_phylum.qza --p-sampling-depth 280000 --m-metadata-file metadata_all_16s_control.tsv --out-dir q2-picrust2_output
+
+biom convert -i q2-picrust2_16s/ec_metagenome.biom -o q2-picrust2_16s/ec_metagenome.biom.tsv --to-tsv
+biom convert -i q2-picrust2_16s/ko_metagenome.biom -o q2-picrust2_16s/ko_metagenome.biom.tsv --to-tsv
+biom convert -i q2-picrust2_16s/pathway_abundance.biom -o q2-picrust2_16s/pathway_abundance.biom.tsv --to-tsv
